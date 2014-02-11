@@ -1,4 +1,4 @@
-z5h.graph
+z5h.directed-graph
 =========
 
-JavaScript Graph Library
+JavaScript Directed Graph Library
