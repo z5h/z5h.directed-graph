@@ -2,7 +2,6 @@ _ = require('underscore')
 
 class DirectedGraph
   PRESENT = new Object()
-  A = 1
 
   constructor: ->
     #forward goes OUT from a node to listed nodes
