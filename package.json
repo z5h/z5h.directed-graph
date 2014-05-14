@@ -1,0 +1,39 @@
+{
+  "name": "z5h.graph",
+  "version": "0.1.0",
+  "description": "a directed graph library",
+  "main": "index.js",
+  "devDependencies": {
+    "nodeunit": "^0.9.0",
+    "watchify": "0.9.x",
+    "jscoverage": "^0.5.0-rc2",
+    "coveralls": "^2.10.0"
+  },
+  "dependencies": {
+    "underscore": "1.6.x"
+  },
+  "scripts": {
+    "watch-build": "coffee -w --bare --output lib/ --compile src/*.coffee",
+    "build": "coffee --bare --output lib/ --compile src/*.coffee",
+    "clean": "rm -rf lib/*",
+    "test": "nodeunit test/directed_graph_test.js",
+    "coveralls": "jscoverage lib && Z5H_COVERAGE=1 nodeunit --reporter=lcov test | coveralls"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/z5h/z5h.graph.git"
+  },
+  "homepage": "https://github.com/z5h/z5h.graph",
+  "keywords": [
+    "js",
+    "graph"
+  ],
+  "contributors": [
+    {
+      "name": "Mark Bolusmjak",
+      "email": "bolusmjak@gmail.com",
+      "url": "http://bolusmjak.com"
+    }
+  ],
+  "license": "MIT"
+}
