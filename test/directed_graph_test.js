@@ -5,7 +5,6 @@ var U = require('underscore');
 
 exports.imports = {
   'classes ok': function (t) {
-    t.expect(3);
     t.ok(typeof(Keys) === 'function');
     t.ok(typeof(DirectedGraph) === 'function');
     t.ok(typeof(DirectedObjectGraph) === 'function');

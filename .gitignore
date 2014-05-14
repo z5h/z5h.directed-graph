@@ -1,4 +1,6 @@
 lib-cov
+.coveralls.yml
+*.iml
 *.seed
 *.log
 *.csv
