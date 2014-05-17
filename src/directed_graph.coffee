@@ -175,6 +175,12 @@ class DirectedObjectGraph
   toString: ->
     @g.toString((x) => @keys.value(x).toString())
 
+  toJSON: ->
+    @g.toJSON()
+
+  fromJSON: (json)->
+    @g.fromJSON(json)
+
   add : (node) ->
     @g.add(@keys.key(node))
 
