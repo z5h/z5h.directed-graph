@@ -1,4 +1,5 @@
 _ = require('underscore')
+Keys = require('../').Keys
 
 class DirectedGraph
   PRESENT = new Object()

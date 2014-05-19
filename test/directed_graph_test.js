@@ -444,3 +444,11 @@ exports.directedObjectGraphNonEmpty = U.extend({
     }
   },
   testsForNonEmptyGraph);
+
+exports.directedObjectConstructor = {
+  'empty': function(t){
+    var graph = new DirectedObjectGraph();
+    t.ok(graph.keys);
+    t.done();
+  }
+};

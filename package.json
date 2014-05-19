@@ -1,6 +1,6 @@
 {
   "name": "z5h.graph",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "a directed graph library",
   "main": "index.js",
   "devDependencies": {
