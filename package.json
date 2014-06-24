@@ -1,6 +1,6 @@
 {
   "name": "z5h.directed-graph",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "a directed graph library",
   "main": "index.js",
   "devDependencies": {
@@ -21,9 +21,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/z5h/z5h.graph.git"
+    "url": "git://github.com/z5h/z5h.directed-graph.git"
   },
-  "homepage": "https://github.com/z5h/z5h.graph",
+  "homepage": "https://github.com/z5h/z5h.directed-graph",
   "keywords": [
     "js",
     "graph"
