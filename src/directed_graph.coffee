@@ -46,9 +46,9 @@ class DirectedGraph
     delete @_all[node] if @isDetached(node)
 
   deleteConnected: (node) ->
-    for end in @outFrom(node)
+    for end in @outFrom(node).slice()
       @removeEdge(node, end)
-    for start in @inTo(node)
+    for start in @inTo(node).slice()
       @removeEdge(start, node)
     @deleteUnconnected(node)
 

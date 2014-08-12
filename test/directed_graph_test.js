@@ -182,19 +182,25 @@ var testsForNonEmptyGraph = {
   },
 
   'outFrom': function (t) {
-    var directedGraph = this.directedGraph, node = this.node, a = this.a, b=this.b;
+    var directedGraph = this.directedGraph, node = this.node, a = this.a, b=this.b, c=this.c, d=this.d;
     t.deepEqual([], directedGraph.outFrom(node));
+    t.deepEqual([b, d], directedGraph.outFrom(a));
+    t.deepEqual([c], directedGraph.outFrom(b));
     t.done();
   },
 
   'inTo': function (t) {
-    var directedGraph = this.directedGraph, node = this.node, a = this.a, b=this.b;
+    var directedGraph = this.directedGraph, node = this.node, a = this.a, b=this.b, c=this.c, d=this.d;
     t.deepEqual([], directedGraph.inTo(node));
+    t.deepEqual([], directedGraph.inTo(a));
+    t.deepEqual([a], directedGraph.inTo(b));
+    t.deepEqual([b], directedGraph.inTo(c));
+    t.deepEqual([a], directedGraph.inTo(d));
     t.done();
   },
 
   'addEdge': function (t) {
-    var directedGraph = this.directedGraph, node = this.node, a = this.a, b=this.b;
+    var directedGraph = this.directedGraph, node = this.node, a = this.a, b=this.b, d=this.d;
     t.ok(directedGraph.isEdge(a, b));
     directedGraph.addEdge(a, b);
     t.ok(directedGraph.isEdge(a, b));
@@ -205,7 +211,7 @@ var testsForNonEmptyGraph = {
     directedGraph.addEdge(a, node);
     t.ok(directedGraph.isEdge(a, b));
     t.ok(directedGraph.isEdge(a, node));
-    t.deepEqual(directedGraph.outFrom(a), [b, node]);
+    t.deepEqual(directedGraph.outFrom(a).sort(), [b, d, node]);
     t.done();
   },
 
@@ -274,7 +280,7 @@ var testsForNonEmptyGraph = {
 
   'toString': function (t) {
     var directedGraph = this.directedGraph, node = this.node, a = this.a, b=this.b;
-    t.equal("a,b,node\nb <- a", directedGraph.toString());
+    t.equal("a,b,c,d,node\nb <- a\nc <- b\nd <- a", directedGraph.toString());
     t.done();
   },
 
@@ -309,12 +315,12 @@ var testsForNonEmptyGraph = {
   },
 
   'forLeadFrom start': function (t) {
-    var directedGraph = this.directedGraph, node = this.node, a = this.a, b=this.b;
+    var directedGraph = this.directedGraph, node = this.node, a = this.a, b=this.b, c=this.c, d=this.d;
     var visited = [];
     directedGraph.forEachOut(a, function (x, y) {
       visited.push(y);
     });
-    t.deepEqual([a, b], visited);
+    t.deepEqual([a, b, c, d], visited);
     t.done();
   },
 
@@ -331,11 +337,15 @@ var testsForNonEmptyGraph = {
   },
 
   'commonPredecessor': function (t) {
-    var directedGraph = this.directedGraph, node = this.node, a = this.a, b=this.b;
+    var directedGraph = this.directedGraph, node = this.node, a = this.a, b=this.b, c=this.c, d=this.d;
     t.equal(a, directedGraph.commonPredecessor(a, b));
     t.equal(a, directedGraph.commonPredecessor(b, a));
     t.equal(a, directedGraph.commonPredecessor(a, a));
     t.equal(b, directedGraph.commonPredecessor(b, b));
+    t.equal(a, directedGraph.commonPredecessor(d, b));
+    t.equal(a, directedGraph.commonPredecessor(d, c));
+    t.equal(a, directedGraph.commonPredecessor(a, c));
+    t.equal(b, directedGraph.commonPredecessor(b, c));
     t.equal(node, directedGraph.commonPredecessor(node, node));
 
     t.ok(!directedGraph.commonPredecessor(node, a));
@@ -346,8 +356,8 @@ var testsForNonEmptyGraph = {
   },
 
   'withoutOutgoing': function (t) {
-    var directedGraph = this.directedGraph, node = this.node, a = this.a, b=this.b;
-    t.deepEqual(directedGraph.all(), [node, a, b]);
+    var directedGraph = this.directedGraph, node = this.node, a = this.a, b=this.b, c=this.c, d=this.d;
+    t.deepEqual(directedGraph.all(), [node, a, b, c, d]);
     t.deepEqual(directedGraph.inTo(a), []);
     t.deepEqual(directedGraph.inTo(b), [a]);
     t.deepEqual(directedGraph.withoutIncoming(), [node, a]);
@@ -355,8 +365,8 @@ var testsForNonEmptyGraph = {
   },
 
   'withoutIncoming': function (t) {
-    var directedGraph = this.directedGraph, node = this.node, a = this.a, b=this.b;
-    t.deepEqual(directedGraph.withoutOutgoing(), [node, b]);
+    var directedGraph = this.directedGraph, node = this.node, a = this.a, b=this.b, c=this.c, d=this.d;
+    t.deepEqual(directedGraph.withoutOutgoing(), [node, c, d]);
     t.done();
   },
 
@@ -418,8 +428,12 @@ exports.directedGraphNonEmpty = U.extend({
       this.node = 'node';
       this.a = 'a';
       this.b = 'b';
+      this.c = 'c';
+      this.d = 'd';
       this.directedGraph.add(this.node);
       this.directedGraph.addEdge(this.a, this.b);
+      this.directedGraph.addEdge(this.b, this.c);
+      this.directedGraph.addEdge(this.a, this.d);
       callback();
     }
   },
@@ -438,8 +452,12 @@ exports.directedObjectGraphNonEmpty = U.extend({
       this.node = new t.Node('n', 'node');
       this.a = new t.Node('a', 'a');
       this.b = new t.Node('b', 'b');
+      this.c = new t.Node('c', 'c');
+      this.d = new t.Node('d', 'd');
       this.directedGraph.add(this.node);
       this.directedGraph.addEdge(this.a, this.b);
+      this.directedGraph.addEdge(this.b, this.c);
+      this.directedGraph.addEdge(this.a, this.d);
       callback();
     }
   },
